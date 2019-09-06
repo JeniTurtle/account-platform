@@ -1,0 +1,20 @@
+{
+  "name": "egg-rabbitmq",
+  "version": "1.0.4",
+  "description": "rabbitmq plgin for egg.js",
+  "eggPlugin": {
+    "name": "rabbitmq"
+  },
+  "keywords": [
+    "egg",
+    "eggPlugin",
+    "egg-plugin"
+  ],
+  "dependencies": {
+    "amqplib": "^0.5.3",
+    "is-type-of": "^1.2.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}

@@ -1,0 +1,1435 @@
+interface BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+}
+
+type BaseModel implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+}
+
+type BaseModelUUID implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+}
+
+input BaseWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+}
+
+input BindRoleMenuInput {
+  roleId: String!
+  menuIds: [String!]!
+}
+
+input BindRolePermissionInput {
+  roleId: String!
+  permissionIds: [String!]!
+}
+
+input BindUserMenuInput {
+  userId: String!
+  menuIds: [String!]!
+}
+
+input BindUserPermissionInput {
+  userId: String!
+  permissionIds: [String!]!
+}
+
+input BindUserRoleInput {
+  userId: String!
+  roleIds: [String!]!
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+interface DeleteResponse {
+  id: ID!
+}
+
+type Department implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """部门名称"""
+  departmentName: String!
+
+  """所在地区"""
+  location: String
+
+  """部门顺序"""
+  departmentOrder: Int
+
+  """上级部门"""
+  supreior: Department
+
+  """上级部门"""
+  supreiorId: String
+
+  """所属机构"""
+  organization: Organization
+
+  """所属机构"""
+  organizationId: String
+}
+
+input DepartmentCreateInput {
+  departmentName: String!
+  location: String
+  departmentOrder: Float
+  supreiorId: String
+  organizationId: String
+}
+
+"""部门列表视图"""
+type DepartmentList {
+  """列表信息"""
+  rows: [Department!]!
+
+  """记录总数，用来做分页"""
+  count: Int!
+}
+
+enum DepartmentOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  departmentName_ASC
+  departmentName_DESC
+  location_ASC
+  location_DESC
+  departmentOrder_ASC
+  departmentOrder_DESC
+  supreiorId_ASC
+  supreiorId_DESC
+  organizationId_ASC
+  organizationId_DESC
+}
+
+input DepartmentUpdateInput {
+  departmentName: String
+  location: String
+  departmentOrder: Float
+  supreiorId: String
+  organizationId: String
+}
+
+input DepartmentWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  departmentName_eq: String
+  departmentName_contains: String
+  departmentName_startsWith: String
+  departmentName_endsWith: String
+  departmentName_in: [String!]
+  location_eq: String
+  location_contains: String
+  location_startsWith: String
+  location_endsWith: String
+  location_in: [String!]
+  departmentOrder_eq: Float
+  departmentOrder_gt: Float
+  departmentOrder_gte: Float
+  departmentOrder_lt: Float
+  departmentOrder_lte: Float
+  departmentOrder_in: [Int!]
+  supreiorId_eq: ID
+  supreiorId_in: [ID!]
+  organizationId_eq: ID
+  organizationId_in: [ID!]
+}
+
+input DepartmentWhereUniqueInput {
+  id: String!
+}
+
+type Menu implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """菜单名称"""
+  name: String!
+
+  """菜单编号"""
+  code: String!
+
+  """菜单地址"""
+  path: String!
+
+  """图标地址"""
+  icon: String!
+
+  """部门顺序"""
+  order: Int
+
+  """是否是分类，用来把菜单分组用，用户菜单请不要绑定分类"""
+  isCategory: MenuIsCategory
+
+  """备注"""
+  remark: String
+
+  """上级菜单分类"""
+  supreior: Menu
+
+  """上级菜单分类"""
+  supreiorId: String
+
+  """所属平台"""
+  platform: Platform
+
+  """所属平台"""
+  platformId: String
+  menuUsers: [MenuUser!]
+  menuRoles: [MenuRole!]
+}
+
+input MenuCreateInput {
+  name: String!
+  code: String!
+  path: String!
+  icon: String!
+  order: Float
+  isCategory: MenuIsCategory!
+  remark: String
+  supreiorId: String
+  platformId: String
+}
+
+enum MenuIsCategory {
+  YES
+  NO
+}
+
+"""菜单列表视图"""
+type MenuList {
+  """列表信息"""
+  rows: [Menu!]!
+
+  """记录总数，用来做分页"""
+  count: Int!
+}
+
+enum MenuOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  name_ASC
+  name_DESC
+  code_ASC
+  code_DESC
+  path_ASC
+  path_DESC
+  icon_ASC
+  icon_DESC
+  order_ASC
+  order_DESC
+  isCategory_ASC
+  isCategory_DESC
+  remark_ASC
+  remark_DESC
+  supreiorId_ASC
+  supreiorId_DESC
+  platformId_ASC
+  platformId_DESC
+}
+
+type MenuRole implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """角色ID"""
+  role: Role
+
+  """角色ID"""
+  roleId: String!
+
+  """菜单ID"""
+  menu: Menu
+
+  """菜单ID"""
+  menuId: String!
+}
+
+input MenuRoleCreateInput {
+  roleId: String!
+  menuId: String!
+}
+
+input MenuRoleUpdateInput {
+  roleId: String
+  menuId: String
+}
+
+input MenuRoleWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  roleId_eq: ID
+  roleId_in: [ID!]
+  menuId_eq: ID
+  menuId_in: [ID!]
+}
+
+input MenuRoleWhereUniqueInput {
+  id: String!
+}
+
+input MenuUpdateInput {
+  name: String
+  code: String
+  path: String
+  icon: String
+  order: Float
+  isCategory: MenuIsCategory
+  remark: String
+  supreiorId: String
+  platformId: String
+}
+
+type MenuUser implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """用户ID"""
+  user: User
+
+  """用户ID"""
+  userId: String!
+
+  """菜单ID"""
+  menu: Menu
+
+  """菜单ID"""
+  menuId: String!
+}
+
+input MenuUserCreateInput {
+  userId: String!
+  menuId: String!
+}
+
+input MenuUserUpdateInput {
+  userId: String
+  menuId: String
+}
+
+input MenuUserWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  userId_eq: ID
+  userId_in: [ID!]
+  menuId_eq: ID
+  menuId_in: [ID!]
+}
+
+input MenuUserWhereUniqueInput {
+  id: String!
+}
+
+input MenuWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  name_eq: String
+  name_contains: String
+  name_startsWith: String
+  name_endsWith: String
+  name_in: [String!]
+  code_eq: String
+  code_contains: String
+  code_startsWith: String
+  code_endsWith: String
+  code_in: [String!]
+  path_eq: String
+  path_contains: String
+  path_startsWith: String
+  path_endsWith: String
+  path_in: [String!]
+  icon_eq: String
+  icon_contains: String
+  icon_startsWith: String
+  icon_endsWith: String
+  icon_in: [String!]
+  order_eq: Float
+  order_gt: Float
+  order_gte: Float
+  order_lt: Float
+  order_lte: Float
+  order_in: [Int!]
+  isCategory_eq: MenuIsCategory
+  isCategory_in: [MenuIsCategory!]
+  remark_eq: String
+  remark_contains: String
+  remark_startsWith: String
+  remark_endsWith: String
+  remark_in: [String!]
+  supreiorId_eq: ID
+  supreiorId_in: [ID!]
+  platformId_eq: ID
+  platformId_in: [ID!]
+}
+
+input MenuWhereUniqueInput {
+  id: String!
+}
+
+type Mutation {
+  createDepartment(data: DepartmentCreateInput!): Department!
+  createMenu(data: MenuCreateInput!): Menu!
+  addRoleMenu(data: BindRoleMenuInput!): [MenuRole!]!
+  addUserMenu(data: BindUserMenuInput!): [MenuUser!]!
+  createOrganization(data: OrganizationCreateInput!): Organization!
+  createPermission(data: PermissionCreateInput!): Permission!
+  addRolePermission(data: BindRolePermissionInput!): [PermissionRole!]!
+  addUserPermission(data: BindUserPermissionInput!): [PermissionUser!]!
+  createPlatform(data: PlatformCreateInput!): Platform!
+  createRole(data: RoleCreateInput!): Role!
+  addUserRole(data: BindUserRoleInput!): [RoleUser!]!
+  createUser(data: UserCreateInput!): User!
+}
+
+type Organization implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """机构名称"""
+  organizeName: String!
+
+  """所在地区"""
+  location: String
+}
+
+input OrganizationCreateInput {
+  organizeName: String!
+  location: String
+}
+
+"""机构列表视图"""
+type OrganizationList {
+  """列表信息"""
+  rows: [Organization!]!
+
+  """记录总数，用来做分页"""
+  count: Int!
+}
+
+enum OrganizationOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  organizeName_ASC
+  organizeName_DESC
+  location_ASC
+  location_DESC
+}
+
+input OrganizationUpdateInput {
+  organizeName: String
+  location: String
+}
+
+input OrganizationWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  organizeName_eq: String
+  organizeName_contains: String
+  organizeName_startsWith: String
+  organizeName_endsWith: String
+  organizeName_in: [String!]
+  location_eq: String
+  location_contains: String
+  location_startsWith: String
+  location_endsWith: String
+  location_in: [String!]
+}
+
+input OrganizationWhereUniqueInput {
+  id: String!
+}
+
+type Permission implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """权限名称"""
+  name: String!
+
+  """权限编号"""
+  code: String!
+
+  """是否是分类，用来跟权限分组用，用户权限请不要绑定分类"""
+  isCategory: PermissionIsCategory
+
+  """是否所有平台通用"""
+  isGlobal: PermissionIsGlobal
+
+  """备注"""
+  remark: String
+
+  """上级权限分类"""
+  supreior: Permission
+
+  """上级权限分类"""
+  supreiorId: String
+
+  """所属平台"""
+  platform: Platform
+
+  """所属平台"""
+  platformId: String
+  permissionUsers: [PermissionUser!]
+  permissionRoles: [PermissionRole!]
+}
+
+input PermissionCreateInput {
+  name: String!
+  code: String!
+  isCategory: PermissionIsCategory!
+  isGlobal: PermissionIsGlobal!
+  remark: String
+  supreiorId: String
+  platformId: String
+}
+
+enum PermissionIsCategory {
+  YES
+  NO
+}
+
+enum PermissionIsGlobal {
+  YES
+  NO
+}
+
+"""权限列表视图"""
+type PermissionList {
+  """列表信息"""
+  rows: [Permission!]!
+
+  """记录总数，用来做分页"""
+  count: Int!
+}
+
+enum PermissionOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  name_ASC
+  name_DESC
+  code_ASC
+  code_DESC
+  isCategory_ASC
+  isCategory_DESC
+  isGlobal_ASC
+  isGlobal_DESC
+  remark_ASC
+  remark_DESC
+  supreiorId_ASC
+  supreiorId_DESC
+  platformId_ASC
+  platformId_DESC
+}
+
+type PermissionRole implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """角色ID"""
+  role: Role
+
+  """角色ID"""
+  roleId: String!
+
+  """权限ID"""
+  permission: Permission
+
+  """权限ID"""
+  permissionId: String!
+}
+
+input PermissionRoleCreateInput {
+  roleId: String!
+  permissionId: String!
+}
+
+input PermissionRoleUpdateInput {
+  roleId: String
+  permissionId: String
+}
+
+input PermissionRoleWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  roleId_eq: ID
+  roleId_in: [ID!]
+  permissionId_eq: ID
+  permissionId_in: [ID!]
+}
+
+input PermissionRoleWhereUniqueInput {
+  id: String!
+}
+
+input PermissionUpdateInput {
+  name: String
+  code: String
+  isCategory: PermissionIsCategory
+  isGlobal: PermissionIsGlobal
+  remark: String
+  supreiorId: String
+  platformId: String
+}
+
+type PermissionUser implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """用户ID"""
+  user: User
+
+  """用户ID"""
+  userId: String!
+
+  """权限ID"""
+  permission: Permission
+
+  """权限ID"""
+  permissionId: String!
+}
+
+input PermissionUserCreateInput {
+  userId: String!
+  permissionId: String!
+}
+
+input PermissionUserUpdateInput {
+  userId: String
+  permissionId: String
+}
+
+input PermissionUserWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  userId_eq: ID
+  userId_in: [ID!]
+  permissionId_eq: ID
+  permissionId_in: [ID!]
+}
+
+input PermissionUserWhereUniqueInput {
+  id: String!
+}
+
+input PermissionWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  name_eq: String
+  name_contains: String
+  name_startsWith: String
+  name_endsWith: String
+  name_in: [String!]
+  code_eq: String
+  code_contains: String
+  code_startsWith: String
+  code_endsWith: String
+  code_in: [String!]
+  isCategory_eq: PermissionIsCategory
+  isCategory_in: [PermissionIsCategory!]
+  isGlobal_eq: PermissionIsGlobal
+  isGlobal_in: [PermissionIsGlobal!]
+  remark_eq: String
+  remark_contains: String
+  remark_startsWith: String
+  remark_endsWith: String
+  remark_in: [String!]
+  supreiorId_eq: ID
+  supreiorId_in: [ID!]
+  platformId_eq: ID
+  platformId_in: [ID!]
+}
+
+input PermissionWhereUniqueInput {
+  id: String!
+}
+
+type Platform implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """平台名称"""
+  platformName: String!
+
+  """平台介绍"""
+  platformDesc: String!
+}
+
+input PlatformCreateInput {
+  platformName: String!
+  platformDesc: String!
+}
+
+"""平台列表视图"""
+type PlatformList {
+  """列表信息"""
+  rows: [Platform!]!
+
+  """记录总数，用来做分页"""
+  count: Int!
+}
+
+enum PlatformOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  platformName_ASC
+  platformName_DESC
+  platformDesc_ASC
+  platformDesc_DESC
+}
+
+input PlatformUpdateInput {
+  platformName: String
+  platformDesc: String
+}
+
+input PlatformWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  platformName_eq: String
+  platformName_contains: String
+  platformName_startsWith: String
+  platformName_endsWith: String
+  platformName_in: [String!]
+  platformDesc_eq: String
+  platformDesc_contains: String
+  platformDesc_startsWith: String
+  platformDesc_endsWith: String
+  platformDesc_in: [String!]
+}
+
+input PlatformWhereUniqueInput {
+  id: String!
+}
+
+type Query {
+  departments(offset: Int, limit: Int = 50, where: DepartmentWhereInput, orderBy: DepartmentOrderByInput): DepartmentList!
+  menus(offset: Int, limit: Int = 50, where: MenuWhereInput, orderBy: MenuOrderByInput): MenuList!
+  organizations(offset: Int, limit: Int = 50, where: OrganizationWhereInput, orderBy: OrganizationOrderByInput): OrganizationList!
+  permissions(offset: Int, limit: Int = 50, where: PermissionWhereInput, orderBy: PermissionOrderByInput): PermissionList!
+  platforms(offset: Int, limit: Int = 50, where: PlatformWhereInput, orderBy: PlatformOrderByInput): PlatformList!
+  roles(offset: Int, limit: Int = 50, where: RoleWhereInput, orderBy: RoleOrderByInput): RoleList!
+  users(offset: Int, limit: Int = 50, where: UserWhereInput, orderBy: UserOrderByInput): UserList!
+}
+
+type Role implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """角色名称"""
+  roleName: String!
+
+  """角色编号"""
+  roleCode: String!
+
+  """备注"""
+  remark: String
+
+  """所属平台"""
+  platform: Platform
+
+  """所属平台"""
+  platformId: String
+  permissionRoles: [PermissionRole!]
+  roleUsers: [RoleUser!]
+}
+
+input RoleCreateInput {
+  roleName: String!
+  roleCode: String!
+  remark: String
+  platformId: String
+}
+
+"""角色列表视图"""
+type RoleList {
+  """列表信息"""
+  rows: [Role!]!
+
+  """记录总数，用来做分页"""
+  count: Int!
+}
+
+enum RoleOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  roleName_ASC
+  roleName_DESC
+  roleCode_ASC
+  roleCode_DESC
+  remark_ASC
+  remark_DESC
+  platformId_ASC
+  platformId_DESC
+}
+
+input RoleUpdateInput {
+  roleName: String
+  roleCode: String
+  remark: String
+  platformId: String
+}
+
+type RoleUser implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """用户ID"""
+  user: User
+
+  """用户ID"""
+  userId: String!
+
+  """角色ID"""
+  role: Role
+
+  """角色ID"""
+  roleId: String!
+}
+
+input RoleUserCreateInput {
+  userId: String!
+  roleId: String!
+}
+
+input RoleUserUpdateInput {
+  userId: String
+  roleId: String
+}
+
+input RoleUserWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  userId_eq: ID
+  userId_in: [ID!]
+  roleId_eq: ID
+  roleId_in: [ID!]
+}
+
+input RoleUserWhereUniqueInput {
+  id: String!
+}
+
+input RoleWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  roleName_eq: String
+  roleName_contains: String
+  roleName_startsWith: String
+  roleName_endsWith: String
+  roleName_in: [String!]
+  roleCode_eq: String
+  roleCode_contains: String
+  roleCode_startsWith: String
+  roleCode_endsWith: String
+  roleCode_in: [String!]
+  remark_eq: String
+  remark_contains: String
+  remark_startsWith: String
+  remark_endsWith: String
+  remark_in: [String!]
+  platformId_eq: ID
+  platformId_in: [ID!]
+}
+
+input RoleWhereUniqueInput {
+  id: String!
+}
+
+type StandardDeleteResponse {
+  id: ID!
+}
+
+type User implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+
+  """用户名"""
+  username: String!
+
+  """真实姓名"""
+  realname: String
+
+  """用户昵称"""
+  nickname: String
+
+  """性别"""
+  gender: UserGender
+
+  """是否是超级管理员"""
+  isSuperuser: UserIsSuperuser
+
+  """是否是员工"""
+  isStaff: UserIsStaff
+
+  """是否启用"""
+  isActive: UserIsActive
+
+  """电子邮箱"""
+  email: String!
+
+  """手机号码"""
+  mobile: String
+
+  """首次登陆时间"""
+  firstLoginTime: DateTime
+
+  """最后一次登陆时间"""
+  lastLoginTime: DateTime
+
+  """所属部门"""
+  department: Department
+
+  """所属部门"""
+  departmentId: String
+
+  """所属机构"""
+  organization: Organization
+
+  """所属机构"""
+  organizationId: String
+
+  """所属平台"""
+  platform: Platform
+
+  """所属平台"""
+  platformId: String
+  permissionUsers: [PermissionUser!]
+  roleUsers: [RoleUser!]
+}
+
+input UserCreateInput {
+  username: String!
+  password: String!
+  realname: String
+  nickname: String
+  gender: UserGender!
+  isSuperuser: UserIsSuperuser!
+  isStaff: UserIsStaff!
+  isActive: UserIsActive!
+  email: String
+  mobile: String
+  firstLoginTime: DateTime
+  lastLoginTime: DateTime
+  departmentId: String
+  organizationId: String
+  platformId: String
+}
+
+enum UserGender {
+  UNKNOWN
+  MAN
+  WOMAN
+}
+
+enum UserIsActive {
+  NO
+  YES
+}
+
+enum UserIsStaff {
+  NO
+  YES
+}
+
+enum UserIsSuperuser {
+  NO
+  YES
+}
+
+"""用户列表列表视图"""
+type UserList {
+  """列表信息"""
+  rows: [User!]!
+
+  """记录总数，用来做分页"""
+  count: Int!
+}
+
+enum UserOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  username_ASC
+  username_DESC
+  password_ASC
+  password_DESC
+  realname_ASC
+  realname_DESC
+  nickname_ASC
+  nickname_DESC
+  gender_ASC
+  gender_DESC
+  isSuperuser_ASC
+  isSuperuser_DESC
+  isStaff_ASC
+  isStaff_DESC
+  isActive_ASC
+  isActive_DESC
+  email_ASC
+  email_DESC
+  mobile_ASC
+  mobile_DESC
+  firstLoginTime_ASC
+  firstLoginTime_DESC
+  lastLoginTime_ASC
+  lastLoginTime_DESC
+  departmentId_ASC
+  departmentId_DESC
+  organizationId_ASC
+  organizationId_DESC
+  platformId_ASC
+  platformId_DESC
+}
+
+input UserUpdateInput {
+  username: String
+  password: String
+  realname: String
+  nickname: String
+  gender: UserGender
+  isSuperuser: UserIsSuperuser
+  isStaff: UserIsStaff
+  isActive: UserIsActive
+  email: String
+  mobile: String
+  firstLoginTime: DateTime
+  lastLoginTime: DateTime
+  departmentId: String
+  organizationId: String
+  platformId: String
+}
+
+input UserWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  username_eq: String
+  username_contains: String
+  username_startsWith: String
+  username_endsWith: String
+  username_in: [String!]
+  password_eq: String
+  password_contains: String
+  password_startsWith: String
+  password_endsWith: String
+  password_in: [String!]
+  realname_eq: String
+  realname_contains: String
+  realname_startsWith: String
+  realname_endsWith: String
+  realname_in: [String!]
+  nickname_eq: String
+  nickname_contains: String
+  nickname_startsWith: String
+  nickname_endsWith: String
+  nickname_in: [String!]
+  gender_eq: UserGender
+  gender_in: [UserGender!]
+  isSuperuser_eq: UserIsSuperuser
+  isSuperuser_in: [UserIsSuperuser!]
+  isStaff_eq: UserIsStaff
+  isStaff_in: [UserIsStaff!]
+  isActive_eq: UserIsActive
+  isActive_in: [UserIsActive!]
+  email_eq: String
+  email_contains: String
+  email_startsWith: String
+  email_endsWith: String
+  email_in: [String!]
+  mobile_eq: String
+  mobile_contains: String
+  mobile_startsWith: String
+  mobile_endsWith: String
+  mobile_in: [String!]
+  firstLoginTime_gt: DateTime
+  firstLoginTime_gte: DateTime
+  firstLoginTime_lt: DateTime
+  firstLoginTime_lte: DateTime
+  lastLoginTime_gt: DateTime
+  lastLoginTime_gte: DateTime
+  lastLoginTime_lt: DateTime
+  lastLoginTime_lte: DateTime
+  departmentId_eq: ID
+  departmentId_in: [ID!]
+  organizationId_eq: ID
+  organizationId_in: [ID!]
+  platformId_eq: ID
+  platformId_in: [ID!]
+}
+
+input UserWhereUniqueInput {
+  id: String
+  username: String
+  email: String
+}

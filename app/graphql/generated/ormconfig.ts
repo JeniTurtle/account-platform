@@ -1,0 +1,4 @@
+import {SnakeNamingStrategy} from 'warthog';
+     const config = {"type":"postgres","host":"10.0.96.1","port":"7007","username":"postgres","password":"postgres","database":"message_platform","migrationsRun":true,"synchronize":false,"logging":["query"],"maxQueryExecutionTime":1500,"entityPrefix":"mp_","namingStrategy":{},"entityWatchDir":"app/typeorm/entity/**/*.ts","entities":["app/typeorm/entity/**/*.ts"],"migrations":["app/typeorm/migration/**/*.ts"],"subscribers":["app/typeorm/subscriber/**/*.ts"],"warthogGenerateFolder":"app/graphql/generated","warthogResolversPath":["app/graphql/**/*.resolver.ts"],"cli":{"entitiesDir":"app/typeorm/entity","migrationsDir":"app/typeorm/migration","subscribersDir":"app/typeorm/subscriber"}};
+     config.namingStrategy = new SnakeNamingStrategy();
+     module.exports = config;

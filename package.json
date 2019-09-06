@@ -1,0 +1,104 @@
+{
+  "name": "account-platform",
+  "version": "1.0.0",
+  "description": "用户权限管理系统",
+  "private": true,
+  "egg": {
+    "typescript": true,
+    "declarations": true
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --port=7021 --title=account-platform",
+    "stop": "egg-scripts stop --title=account-platform",
+    "dev": "npm run format && egg-bin dev --ts --port=7021",
+    "debug": "egg-bin debug",
+    "test-local": "egg-bin test --ts",
+    "test": "npm run lint --fix && npm run test-local",
+    "cov": "egg-bin cov",
+    "ets": "npx ets",
+    "tsc": "ets && tsc -p tsconfig.json",
+    "ci": "npm run format && npm run lint && npm run cov && npm run tsc",
+    "autod": "autod",
+    "lint": "tslint --project . -c tslint.json",
+    "format": "prettier --config .prettierrc --parser typescript --write \"{app,config,lib,plugin,test}/**/*.ts\"",
+    "clean": "ets clean",
+    "db:migrate:generate": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm migration:generate -n db  --config app/graphql/generated/ormconfig.ts --dir ./app/typeorm/migration",
+    "db:migrate": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm migration:run  --config app/graphql/generated/ormconfig.ts",
+    "graphql:codegen": "yarn warthog codegen"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run tsc"
+    }
+  },
+  "dependencies": {
+    "@types/amqplib": "^0.5.13",
+    "amqplib": "^0.5.3",
+    "apollo-server-koa": "^2.8.1",
+    "bcrypt": "^3.0.6",
+    "class-validator": "^0.9.1",
+    "crypto-js": "^3.1.9-1",
+    "dataloader": "^1.4.0",
+    "egg": "^2.6.1",
+    "egg-cors": "^2.2.0",
+    "egg-redis": "^2.3.2",
+    "egg-scripts": "^2.6.0",
+    "egg-shell-plus": "^1.2.3",
+    "eureka-js-client": "^4.4.2",
+    "fs-extra": "^8.1.0",
+    "fs-jetpack": "^2.2.2",
+    "graphql": "^14.4.2",
+    "graphql-query-complexity": "^0.3.0",
+    "ip": "^1.1.5",
+    "is-type-of": "^1.2.1",
+    "js-md5": "^0.7.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "pg": "^7.12.1",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^0.17.4",
+    "uuid": "^3.3.2",
+    "warthog": "^1.40.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@sentry/node": "^5.3.0",
+    "@types/eureka-js-client": "^4.4.2",
+    "@types/ioredis": "^4.0.10",
+    "@types/ip": "^1.1.0",
+    "@types/joi": "^14.3.3",
+    "@types/lodash": "^4.14.123",
+    "@types/mocha": "^2.2.40",
+    "@types/node": "^7.10.5",
+    "@types/sequelize": "^4.27.48",
+    "@types/supertest": "^2.0.0",
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.13.1",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.16.0",
+    "egg-ts-helper": "^1.25.5",
+    "husky": "^3.0.4",
+    "prettier": "1.18.2",
+    "tsconfig-paths": "^3.8.0",
+    "tslib": "^1.9.0",
+    "tslint": "^5.0.0",
+    "tslint-config-egg": "^1.0.0",
+    "typescript": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "eslintIgnore": [
+    "coverage"
+  ],
+  "author": "",
+  "license": "MIT"
+}

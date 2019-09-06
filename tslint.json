@@ -1,0 +1,15 @@
+{
+  "extends": ["tslint-config-egg"],
+  "rules": {
+    "array-bracket-spacing": false,
+    "no-var-requires": false,
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "linebreak-style": ["error", "windows"]
+  },
+  "linterOptions": {
+    "exclude": [
+      "app/graphql/generated/**/*.ts",
+      "app/typeorm/migration/**/*.ts"
+    ]
+  }
+}
