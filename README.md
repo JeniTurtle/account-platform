@@ -6,7 +6,7 @@
 
 管理自身系统的接口使用graphql，开放给接入平台的接口使用的restful，详情参考swagger文档。
 
-另外带有eureka服务注册插件，可以获取远程配置文件，以及rebbitmq插件。
+另外带有eureka服务注册插件，可以获取远程配置文件，以及rabbitmq插件。
 
 注：该项目使用场景基于eureka服务，如果不使用eureka，先修改config/plugin.ts，把eureka插件关闭。
 
